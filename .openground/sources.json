@@ -1,0 +1,23 @@
+{
+  "nextjs": {
+    "type": "git_repo",
+    "repo_url": "https://github.com/vercel/next.js.git",
+    "docs_paths": [
+      "docs"
+    ]
+  },
+  "shadcn-ui": {
+    "type": "git_repo",
+    "repo_url": "https://github.com/shadcn-ui/ui.git",
+    "docs_paths": [
+      "apps/v4/content/docs"
+    ]
+  },
+  "claude-code": {
+    "type": "sitemap",
+    "sitemap_url": "https://code.claude.com/docs/sitemap.xml",
+    "filter_keywords": [
+      "/en/"
+    ]
+  }
+}
