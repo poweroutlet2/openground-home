@@ -130,9 +130,14 @@ export function LandingTerminal() {
           className="text-center"
         >
           <motion.div variants={fadeUp}>
-            <span className="inline-block rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 font-mono text-xs tracking-wide text-emerald-400">
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 font-mono text-xs tracking-wide text-emerald-400 transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/20"
+            >
               v0.13 — open source
-            </span>
+            </a>
           </motion.div>
 
           <motion.h1
