@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   IconBrandGithub,
@@ -61,6 +62,41 @@ function ComparisonIcon({ icon: Icon }: { icon: typeof IconCheck }) {
 }
 
 export function LandingTerminal() {
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("loading");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "847e1d6a-a0cf-4795-961d-039d0f53727c",
+          subject: "Enterprise Inquiry from openground landing page",
+          from_name: formData.name,
+          reply_to: formData.email,
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormStatus("success");
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-zinc-950 text-zinc-100">
       {/* Grid background */}
@@ -68,6 +104,22 @@ export function LandingTerminal() {
 
       {/* Hero glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 bg-emerald-500/[0.07] blur-[120px]" />
+
+      {/* Header with GitHub link */}
+      <header className="relative px-6 py-4">
+        <div className="mx-auto flex max-w-5xl items-center justify-end">
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-zinc-900/50 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-emerald-500/50 hover:bg-zinc-900 hover:text-emerald-400"
+            aria-label="View on GitHub"
+          >
+            <IconBrandGithub size={18} />
+            <span>GitHub</span>
+          </a>
+        </div>
+      </header>
 
       {/* ── Hero ── */}
       <section className="relative mx-auto max-w-5xl px-6 pb-24 pt-32">
@@ -405,56 +457,98 @@ export function LandingTerminal() {
 
             <motion.div variants={fadeUp}>
               <form
-                onSubmit={(e) => e.preventDefault()}
-                className="space-y-4 rounded-lg border border-white/5 bg-zinc-900/50 p-6"
+                onSubmit={handleSubmit}
+                className="rounded-lg border border-white/5 bg-zinc-900/50 p-6"
               >
-                <div>
-                  <label className="mb-1.5 block font-mono text-xs text-zinc-400">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50"
-                    placeholder="Jane Doe"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block font-mono text-xs text-zinc-400">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50"
-                    placeholder="jane@company.com"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block font-mono text-xs text-zinc-400">
-                    Company
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50"
-                    placeholder="Acme Inc."
-                  />
-                </div>
-                <div>
-                  <label className="mb-1.5 block font-mono text-xs text-zinc-400">
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="w-full resize-none rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50"
-                    placeholder="Tell us about your needs..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 px-6 py-3 font-medium text-zinc-950 transition-colors hover:bg-emerald-400"
-                >
-                  <IconSend size={18} />
-                  Send Message
-                </button>
+                {formStatus === "success" ? (
+                  <div className="space-y-4 rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-6 text-center">
+                    <IconCheck size={48} className="mx-auto text-emerald-400" />
+                    <h3 className="font-mono text-xl font-semibold text-emerald-400">Message sent!</h3>
+                    <p className="text-zinc-300">
+                      Thanks for reaching out. The openground team will get back to you within 24 hours.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <input
+                      type="hidden"
+                      name="access_key"
+                      value="847e1d6a-a0cf-4795-961d-039d0f53727c"
+                    />
+                    <div>
+                      <label className="mb-1.5 block font-mono text-xs text-zinc-400">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        disabled={formStatus === "loading"}
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50 disabled:opacity-50"
+                        placeholder="Jane Doe"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block font-mono text-xs text-zinc-400">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        disabled={formStatus === "loading"}
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50 disabled:opacity-50"
+                        placeholder="jane@company.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block font-mono text-xs text-zinc-400">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        name="company"
+                        required
+                        disabled={formStatus === "loading"}
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        className="w-full rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50 disabled:opacity-50"
+                        placeholder="Acme Inc."
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block font-mono text-xs text-zinc-400">
+                        Message
+                      </label>
+                      <textarea
+                        rows={4}
+                        name="message"
+                        required
+                        disabled={formStatus === "loading"}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full resize-none rounded-md border border-white/10 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500/50 disabled:opacity-50"
+                        placeholder="Tell us about your needs..."
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={formStatus === "loading"}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 px-6 py-3 font-medium text-zinc-950 transition-colors hover:bg-emerald-400 disabled:opacity-50"
+                    >
+                      {formStatus === "loading" ? "Sending..." : (
+                        <>
+                          <IconSend size={18} />
+                          Send Message
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
               </form>
             </motion.div>
           </div>

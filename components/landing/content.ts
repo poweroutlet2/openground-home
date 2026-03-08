@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 
 export const GITHUB_URL = "https://github.com/poweroutlet2/openground";
-export const DOCS_URL = "https://docs.openground.ai";
+export const DOCS_URL = "https://poweroutlet2-openground.mintlify.app/introduction";
 
 export const HERO = {
   tagline: "On-device docs for AI agents.",
@@ -196,7 +196,7 @@ export const ENTERPRISE = {
 };
 
 export const FOOTER = {
-  tagline: "Open source. On device. On your terms.",
+  tagline: "Open source. On device. Private.",
   links: [
     { label: "GitHub", href: GITHUB_URL },
     { label: "Documentation", href: DOCS_URL },
