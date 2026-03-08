@@ -16,7 +16,7 @@ export const DOCS_URL = "https://docs.openground.ai";
 export const HERO = {
   tagline: "On-device docs for AI agents.",
   subtitle:
-    "Give your AI coding assistant accurate, up-to-date documentation — without sending a single byte to the cloud.",
+    "Give your AI coding assistant accurate, up-to-date documentation, without sending a single byte to the cloud.",
   cta_primary: "Get Started",
   cta_secondary: "Read the Docs",
 };
@@ -39,7 +39,7 @@ export const PROBLEM = {
     {
       title: "Limited to Their Catalog",
       description:
-        "Cloud services only index what they choose. Internal docs, niche libraries, and private repos are left out — unless you pay.",
+        "Cloud services only index what they choose. Internal docs, niche libraries, and private repos are left out, unless you pay.",
     },
   ],
 };
@@ -67,13 +67,13 @@ export const FEATURES = [
     icon: IconGitBranch,
     title: "Version-Aware",
     description:
-      "Maintain multiple versions of the same library side by side. Query against the exact version you're using.",
+      "Search the exact version you're using. Not whatever was current when the model was trained.",
   },
   {
     icon: IconRefresh,
     title: "Incremental Updates",
     description:
-      "Content-hash diffing means only changed pages are re-processed. Updates are fast, even for large doc sets.",
+      "Updates are instant. Only changed pages get re-indexed.",
   },
   {
     icon: IconPlug,
@@ -84,14 +84,14 @@ export const FEATURES = [
 ];
 
 export const HOW_IT_WORKS = {
-  heading: "Three commands. That's it.",
+  heading: "Two commands. Then your AI just knows.",
   steps: [
     {
       step: "01",
       title: "Add your docs",
       command: "openground add nextjs --source https://nextjs.org/sitemap.xml",
       description:
-        "Point openground at any documentation source — a sitemap URL, a GitHub repo, or a local directory.",
+        "Point openground at any documentation source: a sitemap URL, a GitHub repo, or a local directory.",
     },
     {
       step: "02",
@@ -102,10 +102,10 @@ export const HOW_IT_WORKS = {
     },
     {
       step: "03",
-      title: "Your AI just knows",
-      command: '> "How do I set up middleware in Next.js?"',
+      title: "That's it. Just ask.",
+      command: '// No command needed. Your AI just knows.',
       description:
-        "Your AI coding assistant automatically searches your local docs and gets accurate, version-specific answers.",
+        "Ask your AI anything. It searches your local docs automatically and gives you accurate answers for the exact version you're using.",
     },
   ],
 };
@@ -175,7 +175,7 @@ export const COMPARISON = {
     },
     {
       dimension: "Library Coverage",
-      openground: { text: "Any — you add what you need", icon: IconCheck },
+      openground: { text: "Any library. You add what you need.", icon: IconCheck },
       context7: { text: "9,000+ pre-indexed, limited to catalog", icon: IconMinus },
       websearch: { text: "Unlimited but noisy", icon: IconMinus },
     },
