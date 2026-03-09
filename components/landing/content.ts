@@ -185,7 +185,7 @@ export const COMPARISON = {
 export const ENTERPRISE = {
   heading: "Enterprise Solutions",
   subheading:
-    "Need openground tailored to your organization? We offer custom solutions for teams that need more.",
+    "Need help deploying openground within your organization? We offer custom solutions for teams that need more.",
   offerings: [
     "On-premise deployment with your infrastructure",
     "Custom documentation pipelines and integrations",

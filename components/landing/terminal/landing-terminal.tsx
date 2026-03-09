@@ -176,13 +176,11 @@ export function LandingTerminal() {
               {HERO.cta_primary}
             </a>
             <a
-              href={DOCS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-6 py-3 font-medium text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
+              href="#enterprise"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-6 py-3 font-medium text-zinc-300 transition-colors hover:border-emerald-500/50 hover:text-emerald-400"
             >
-              <IconBook size={20} />
-              {HERO.cta_secondary}
+              <IconArrowRight size={20} />
+              Enterprise Solutions
             </a>
           </motion.div>
 
@@ -431,7 +429,7 @@ export function LandingTerminal() {
       </section>
 
       {/* ── Enterprise ── */}
-      <section className="relative mx-auto max-w-5xl px-6 py-24">
+      <section id="enterprise" className="relative mx-auto max-w-5xl px-6 py-24 scroll-mt-24">
         <motion.div
           initial="hidden"
           whileInView="visible"
